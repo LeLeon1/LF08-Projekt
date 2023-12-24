@@ -23,6 +23,7 @@ namespace LF08_C_Projekt
         public MainWindow()
         {
             InitializeComponent();
+            //wadoapdkpaokdpowkad
         }
     }
 }
