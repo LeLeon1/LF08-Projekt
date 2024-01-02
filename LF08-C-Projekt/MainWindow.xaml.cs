@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,26 @@ namespace LF08_C_Projekt
         public MainWindow()
         {
             InitializeComponent();
+            //testComment
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Ponies!");
+            /*
+            GetValue(ponyImage.VisibilityProperty);
+            ponyImage.SetValue(VisibilityProperty, );
+            */
+        }
+
+        private void testie() {
+            ArrayList users = new ArrayList();
+
+            users.Add("ponk");
+            users.Add("twi");
+            users.Add("dashie");
+
+           // DataGrid.ItemsSource = users;
         }
     }
 }

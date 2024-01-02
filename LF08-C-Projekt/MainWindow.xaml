@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LF08_C_Projekt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Width="{Binding SystemParameters.PrimaryScreenWidth}"  
+        Height="{Binding SystemParameters.PrimaryScreenHeight}"
+        >
     <Grid>
-        
+        <Image x:Name="ponyImage" HorizontalAlignment="Left" Height="{Binding SystemParameters.PrimaryScreenHeight}" VerticalAlignment="Top" Width="{Binding SystemParameters.PrimaryScreenHeight}" Source="2170933.png" Margin="0,0,0,0" Stretch="Fill"/>
+
+        <Button Content="Ponies?" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding SystemParameters.PrimaryScreenHeight}" Margin="220,302,0,0" Click="Button_Click" Height="{Binding SystemParameters.PrimaryScreenHeight}" FontSize="18" FontFamily="Microsoft Sans Serif" MinWidth="100" MinHeight="25"/>
+        <DataGrid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="99,75,0,0"/>
+
     </Grid>
 </Window>
