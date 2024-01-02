@@ -24,6 +24,7 @@ namespace LF08_C_Projekt
         public MainWindow()
         {
             InitializeComponent();
+
             //testComment
         }
 
@@ -44,6 +45,7 @@ namespace LF08_C_Projekt
             users.Add("dashie");
 
            // DataGrid.ItemsSource = users;
+
         }
     }
 }
