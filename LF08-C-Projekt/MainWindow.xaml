@@ -1,19 +1,37 @@
-﻿<Window x:Class="LF08_C_Projekt.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LF08_C_Projekt"
+        xmlns:Properties="clr-namespace:LF08_C_Projekt.Properties" x:Class="LF08_C_Projekt.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
         Width="{Binding SystemParameters.PrimaryScreenWidth}"  
         Height="{Binding SystemParameters.PrimaryScreenHeight}"
         >
-    <Grid>
+    <Grid x:Name="owamdadw">
         <Image x:Name="ponyImage" HorizontalAlignment="Left" Height="{Binding SystemParameters.PrimaryScreenHeight}" VerticalAlignment="Top" Width="{Binding SystemParameters.PrimaryScreenHeight}" Source="2170933.png" Margin="0,0,0,0" Stretch="Fill"/>
 
         <Button Content="Ponies?" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding SystemParameters.PrimaryScreenHeight}" Margin="220,302,0,0" Click="Button_Click" Height="{Binding SystemParameters.PrimaryScreenHeight}" FontSize="18" FontFamily="Microsoft Sans Serif" MinWidth="100" MinHeight="25"/>
         <DataGrid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="99,75,0,0"/>
+        <!--<DataGrid x:Name="testDatagrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="366,254,366,253"/> -->
+        <DataGrid AutoGenerateColumns="False" Height="217" HorizontalAlignment="Left" Margin="73,33,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="640">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="ID" Width="40" Binding="{Binding id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ip_adressen" Width="100" Binding="{Binding ip_adressen}"></DataGridTextColumn>
+                <DataGridTextColumn Header="datum" Width="100" Binding="{Binding datum}"></DataGridTextColumn>
+                <DataGridTextColumn Header="zeit" Width="100" Binding="{Binding zeit}"></DataGridTextColumn>
+                <DataGridTextColumn Header="methoden" Width="100" Binding="{Binding methoden}"></DataGridTextColumn>
+                <DataGridTextColumn Header="pfad" Width="100" Binding="{Binding pfad}"></DataGridTextColumn>
+                <DataGridTextColumn Header="error_code" Width="100" Binding="{Binding error_code}"></DataGridTextColumn>
+
+
+            </DataGrid.Columns>
+
+        </DataGrid>
 
     </Grid>
 </Window>
