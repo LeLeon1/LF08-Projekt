@@ -3,14 +3,9 @@ using System.Collections;
 using System.Windows;
 using System.Data.SQLite;
 using System.Data;
-using System.Windows.Controls;
 using System.IO;
 using System.Security;
 using Microsoft.Win32;
-using System.Windows.Shapes;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace LF08_C_Projekt
 {
@@ -21,6 +16,7 @@ namespace LF08_C_Projekt
     {
         SQLiteConnection conn = new SQLiteConnection(@"Data Source=C:\Users\leon\Documents\Neuer Ordner (3)\LF08-C-Projekt\LF08-C-Projekt\databases\logDb.db");
         private System.Data.DataSet dataSet;
+        private ArrayList filesImported = new ArrayList();
         public MainWindow()
         {
             InitializeComponent();
@@ -31,7 +27,7 @@ namespace LF08_C_Projekt
              MakeDataRelation();
              BindToDataGrid();
             */
-            fillDataGrid();
+            fillDataGrid("select * from logs");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -188,11 +184,11 @@ namespace LF08_C_Projekt
 
            
         }
-        private void fillDataGrid()
+        private void fillDataGrid(String sqliteCommand)
         {
 
             conn.Open();
-            SQLiteCommand cmd = new SQLiteCommand("select * from logs", conn);
+            SQLiteCommand cmd = new SQLiteCommand(sqliteCommand, conn);
             SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             //Database1DataSet ds = new Database1DataSet();
             try {
@@ -237,7 +233,7 @@ namespace LF08_C_Projekt
             {
                 // Open document 
                 string filename = dlg.FileName;
-                textBox1.Text = filename;
+                //textBox1.Text = filename;
             }
             //if (dlg.ShowDialog() == DialogResult.OK)
                     try
@@ -255,12 +251,23 @@ namespace LF08_C_Projekt
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".log";
+            openFileDialog.Filter = "LOG Files (*.log)|*.log";
             if (openFileDialog.ShowDialog() == true)
             {
-                //readStringFromFile(File.ReadAllText(openFileDialog.FileName));
-                readStringFromFile(openFileDialog.FileName);
-                fillDataGrid();
+                //Wenn NICHT drin ist
+                if (!filesImported.Contains(openFileDialog.FileName)){
+                    //readStringFromFile(File.ReadAllText(openFileDialog.FileName));
+                    filesImported.Add(openFileDialog.FileName);
+                    readStringFromFile(openFileDialog.FileName);
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Datei wurde schonmal importiert");
+                }
             }
+            fillDataGrid("select * from logs");
         }
 
         private void readStringFromFile(String allTextString)
@@ -336,6 +343,25 @@ namespace LF08_C_Projekt
                 //Console.WriteLine("Exception: " + e.Message);
                 MessageBox.Show("Exception: " + e.Message);
             }
+        }
+        private void buttonIp_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(textBoxIP.Text);
+        }
+
+        private void buttonErr_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(textBoxErr.Text);
+        }
+
+        private void buttonMeth_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(textBoxMeth.Text);
+        }
+
+        private void buttonTime_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(textBoxTime.Text);
         }
     }
 }

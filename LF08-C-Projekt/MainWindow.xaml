@@ -16,8 +16,9 @@
         <Button Content="Ponies?" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding SystemParameters.PrimaryScreenHeight}" Margin="220,302,0,0" Click="Button_Click" Height="{Binding SystemParameters.PrimaryScreenHeight}" FontSize="18" FontFamily="Microsoft Sans Serif" MinWidth="100" MinHeight="25"/>
         <DataGrid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="99,75,0,0"/>
         <!--<DataGrid x:Name="testDatagrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="366,254,366,253"/> -->
-        <DataGrid AutoGenerateColumns="False" Height="217" HorizontalAlignment="Left" Margin="73,33,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="640" > <!-- add not editible-->
-            
+        <DataGrid AutoGenerateColumns="False" Height="217" HorizontalAlignment="Left" Margin="73,33,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="640" IsReadOnly="True">
+            <!-- add not editible-->
+
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="ID" Width="40" Binding="{Binding id}"></DataGridTextColumn>
@@ -32,13 +33,30 @@
 
 
         </DataGrid>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="855,430,0,0" TextWrapping="Wrap" Text="smth" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="926,486,0,0" VerticalAlignment="Top" Click="button1_Click" />
+
+        <!-- <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="855,430,0,0" TextWrapping="Wrap" Text="smth" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="926,486,0,0" VerticalAlignment="Top" Click="button1_Click" />-->
         <DockPanel Margin="250">
             <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,0,0,10">
                 <Button Name="btnOpenFile" Click="btnOpenFile_Click">Open file</Button>
             </WrapPanel>
-            <TextBox Name="txtEditor" />
         </DockPanel>
+        <TextBox x:Name="IP" HorizontalAlignment="Left" Margin="833,124,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="21" IsReadOnly="True"/>
+        <TextBox x:Name="ErrorCodes" HorizontalAlignment="Left" Margin="948,124,0,0" TextWrapping="Wrap" Text="Error Codes" VerticalAlignment="Top" Width="72" IsReadOnly="True"/>
+        <TextBox x:Name="Methods" HorizontalAlignment="Left" Margin="1071,125,0,0" TextWrapping="Wrap" Text="Methods" VerticalAlignment="Top" Width="82" IsReadOnly="True"/>
+        <TextBox x:Name="time" HorizontalAlignment="Left" Margin="1199,125,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Width="42" IsReadOnly="True"/>
+        <CheckBox x:Name="checkIP" Content="CheckBox" HorizontalAlignment="Left" Margin="808,156,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkErr" Content="CheckBox" HorizontalAlignment="Left" Margin="949,156,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkMeth" Content="CheckBox" HorizontalAlignment="Left" Margin="1071,156,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkTime" Content="CheckBox" HorizontalAlignment="Left" Margin="1180,156,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxIP" HorizontalAlignment="Left" Margin="793,186,0,0" TextWrapping="Wrap" Text="TextBoxIP" VerticalAlignment="Top" Width="102"/>
+        <Button x:Name="buttonIp" Content="Button" HorizontalAlignment="Left" Margin="827,213,0,0" VerticalAlignment="Top" Click="buttonIp_Click"/>
+        <TextBox x:Name="textBoxErr" HorizontalAlignment="Left" Margin="930,186,0,0" TextWrapping="Wrap" Text="TextBoxIP" VerticalAlignment="Top" Width="102" />
+        <Button x:Name="buttonErr" Content="Button" HorizontalAlignment="Left" Margin="964,213,0,0" VerticalAlignment="Top" Click="buttonErr_Click"/>
+        <TextBox x:Name="textBoxMeth" HorizontalAlignment="Left" Margin="1058,186,0,0" TextWrapping="Wrap" Text="TextBoxIP" VerticalAlignment="Top" Width="102" />
+        <Button x:Name="buttonMeth" Content="Button" HorizontalAlignment="Left" Margin="1092,213,0,0" VerticalAlignment="Top" Click="buttonMeth_Click"/>
+        <TextBox x:Name="textBoxTime" HorizontalAlignment="Left" Margin="1162,186,0,0" TextWrapping="Wrap" Text="TextBoxIP" VerticalAlignment="Top" Width="102" />
+        <Button x:Name="buttonTime" Content="Button" HorizontalAlignment="Left" Margin="1196,213,0,0" VerticalAlignment="Top" Click="buttonTime_Click"/>
+
     </Grid>
 </Window>
