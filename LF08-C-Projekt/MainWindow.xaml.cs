@@ -351,9 +351,9 @@ namespace LF08_C_Projekt
             {
                 fillDataGrid(textBoxIP.Text);
                 //MessageBox.Show(textBoxIP.Text);
-            }catch(Exception e)
+            }catch(Exception eb)
             {
-                MessageBox.Show("Exception: " + e.Message);
+                MessageBox.Show("Exception: " + eb.Message);
             }
         }
 
