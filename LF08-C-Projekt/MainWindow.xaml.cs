@@ -3,6 +3,14 @@ using System.Collections;
 using System.Windows;
 using System.Data.SQLite;
 using System.Data;
+using System.Windows.Controls;
+using System.IO;
+using System.Security;
+using Microsoft.Win32;
+using System.Windows.Shapes;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
 
 namespace LF08_C_Projekt
 {
@@ -23,7 +31,7 @@ namespace LF08_C_Projekt
              MakeDataRelation();
              BindToDataGrid();
             */
-            FillDataGrid();
+            fillDataGrid();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -180,24 +188,154 @@ namespace LF08_C_Projekt
 
            
         }
-        private void FillDataGrid()
+        private void fillDataGrid()
         {
 
             conn.Open();
             SQLiteCommand cmd = new SQLiteCommand("select * from logs", conn);
             SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
             //Database1DataSet ds = new Database1DataSet();
-            
-            DataTable dt = new DataTable("verstehe ich nicht");
-            sda.Fill(dt);
-            dataGrid1.ItemsSource = dt.DefaultView;
-            /*
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                dataGrid1.ItemsSource = ds.Tables[0].DefaultView;
+            try {
+                DataTable dt = new DataTable("verstehe ich nicht");
+                sda.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                /*
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    dataGrid1.ItemsSource = ds.Tables[0].DefaultView;
+                }
+                */
             }
-            */
+            catch (Exception e) {
+                MessageBox.Show("Exception: " + e.Message);
+            }
             conn.Close();
+        }
+
+        private void readLogFile()
+        {
+
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+
+
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".log";
+            dlg.Filter = "LOG Files (*.log)|*.log";
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                textBox1.Text = filename;
+            }
+            //if (dlg.ShowDialog() == DialogResult.OK)
+                    try
+                    {
+                        var sr = new StreamReader(dlg.FileName);
+                        //SetText(sr.ReadToEnd());
+                    }
+                    catch (SecurityException ex)
+                    {
+                        MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                        $"Details:\n\n{ex.StackTrace}");
+                    }
+        }
+
+        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                //readStringFromFile(File.ReadAllText(openFileDialog.FileName));
+                readStringFromFile(openFileDialog.FileName);
+                fillDataGrid();
+            }
+        }
+
+        private void readStringFromFile(String allTextString)
+        {
+            String line;
+            try
+            {
+                StreamReader sr = new StreamReader(allTextString);
+
+                conn.Open();
+                line = sr.ReadLine();
+                String[] arrayCsvParts;
+
+                //Continue to read until you reach end of file
+                while (line != null)
+                {
+                    //write the line to console window
+                    arrayCsvParts = line.Split(' ');
+
+                    arrayCsvParts[3] = arrayCsvParts[3].Remove(0, 1);
+                    arrayCsvParts[4] = arrayCsvParts[4].Remove(15, 1);
+                    arrayCsvParts[5] = arrayCsvParts[5].Remove(0, 1);
+                    arrayCsvParts[7] = arrayCsvParts[7].Remove(8, 1);
+
+                    arrayCsvParts[6] = arrayCsvParts[6] + " " + arrayCsvParts[7];
+                    arrayCsvParts[8] = arrayCsvParts[8] + " " + arrayCsvParts[9];
+
+
+                    SQLiteCommand command = conn.CreateCommand();
+                    command.CommandText =
+                        @"
+                            INSERT INTO logs(ip_adressen, datum, zeit, methoden, pfad, error_code)
+                            VALUES ($ip_adressen, $datum, $zeit, $methoden, $pfad_part_1, $error_code_part_1)
+                        ";
+                    command.Parameters.AddWithValue("$ip_adressen", arrayCsvParts[0]);
+                    command.Parameters.AddWithValue("$datum", arrayCsvParts[3]);
+                    command.Parameters.AddWithValue("$zeit", arrayCsvParts[4]);
+                    command.Parameters.AddWithValue("$methoden", arrayCsvParts[5]);
+                    command.Parameters.AddWithValue("$pfad_part_1", arrayCsvParts[6]);
+                    command.Parameters.AddWithValue("$error_code_part_1", arrayCsvParts[8]);
+
+                    command.ExecuteNonQuery();
+                    
+                    /*
+                    command.CommandText =
+                        @"
+                            UPDATE logs SET pfad = pfad || $pfad_part_2 WHERE pfad = $pfad_part_1 AND methoden = $zeit AND datum = $methoden
+                        ";
+                    command.Parameters.AddWithValue("$pfad_part_2", arrayCsvParts[7]);
+                    command.ExecuteNonQuery();
+
+
+                    command.CommandText =
+                        @"
+                            UPDATE logs SET pfad = pfad || $error_code_part_2 WHERE pfad = $error_code_part_1  AND methoden = $zeit AND datum = $methoden
+                        ";
+                    command.Parameters.AddWithValue("$error_code_part_2", arrayCsvParts[9]);
+                    command.ExecuteNonQuery();
+                    */
+
+                    
+
+                    //Console.WriteLine(line);
+                    //Read the next line
+                    line = sr.ReadLine();
+                }
+                //close the file
+                sr.Close();
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine("Exception: " + e.Message);
+                MessageBox.Show("Exception: " + e.Message);
+            }
         }
     }
 }

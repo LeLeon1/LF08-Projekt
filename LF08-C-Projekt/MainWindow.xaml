@@ -16,8 +16,8 @@
         <Button Content="Ponies?" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding SystemParameters.PrimaryScreenHeight}" Margin="220,302,0,0" Click="Button_Click" Height="{Binding SystemParameters.PrimaryScreenHeight}" FontSize="18" FontFamily="Microsoft Sans Serif" MinWidth="100" MinHeight="25"/>
         <DataGrid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="99,75,0,0"/>
         <!--<DataGrid x:Name="testDatagrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="366,254,366,253"/> -->
-        <DataGrid AutoGenerateColumns="False" Height="217" HorizontalAlignment="Left" Margin="73,33,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="640">
-
+        <DataGrid AutoGenerateColumns="False" Height="217" HorizontalAlignment="Left" Margin="73,33,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="640" > <!-- add not editible-->
+            
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="ID" Width="40" Binding="{Binding id}"></DataGridTextColumn>
@@ -28,10 +28,17 @@
                 <DataGridTextColumn Header="pfad" Width="100" Binding="{Binding pfad}"></DataGridTextColumn>
                 <DataGridTextColumn Header="error_code" Width="100" Binding="{Binding error_code}"></DataGridTextColumn>
 
-
             </DataGrid.Columns>
 
-        </DataGrid>
 
+        </DataGrid>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="855,430,0,0" TextWrapping="Wrap" Text="smth" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="926,486,0,0" VerticalAlignment="Top" Click="button1_Click" />
+        <DockPanel Margin="250">
+            <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,0,0,10">
+                <Button Name="btnOpenFile" Click="btnOpenFile_Click">Open file</Button>
+            </WrapPanel>
+            <TextBox Name="txtEditor" />
+        </DockPanel>
     </Grid>
 </Window>
