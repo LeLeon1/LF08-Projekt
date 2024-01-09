@@ -14,9 +14,10 @@ namespace LF08_C_Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
-        SQLiteConnection conn = new SQLiteConnection(@"Data Source=C:\Users\leon\Documents\Neuer Ordner (3)\LF08-C-Projekt\LF08-C-Projekt\databases\logDb.db");
+        SQLiteConnection conn = new SQLiteConnection(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
         private System.Data.DataSet dataSet;
         private ArrayList filesImported = new ArrayList();
+         
         public MainWindow()
         {
             InitializeComponent();
@@ -346,7 +347,14 @@ namespace LF08_C_Projekt
         }
         private void buttonIp_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(textBoxIP.Text);
+            try
+            {
+                fillDataGrid(textBoxIP.Text);
+                //MessageBox.Show(textBoxIP.Text);
+            }catch(Exception e)
+            {
+                MessageBox.Show("Exception: " + e.Message);
+            }
         }
 
         private void buttonErr_Click(object sender, RoutedEventArgs e)
